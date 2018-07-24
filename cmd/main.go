@@ -19,7 +19,6 @@ func InitKey() error {
 	}
 	cryptoKeyEnv := os.Getenv("CRYPTO_KEY")
 	if cryptoKeyEnv=="" {
-		fmt.Println("Not found CRYPTO_KEY in env, you have to input an 16 bytes key!")
 		return nil
 	}
 	CRYPTO_KEY, err = util.Decrypt(DEFAULT_KEY_BYTE, cryptoKeyEnv)

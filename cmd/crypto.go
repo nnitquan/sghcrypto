@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"github.com/urfave/cli"
-	"github.com/howeyc/gopass"
+	"github.com/manifoldco/promptui"
 	"sghcrypto/util"
 	"fmt"
 	"errors"
@@ -18,15 +18,26 @@ func checkArgs(c *cli.Context) error {
 
 func getCryptoKey() (string, error) {
 	if CRYPTO_KEY == "" {
-		fmt.Printf("Crypto Key(16 bytes): ")
-		keyByte, err := gopass.GetPasswd()
+		//fmt.Printf("Crypto Key(16 bytes): ")
+		//keyByte, err := gopass.GetPasswd()
+		//if err != nil {
+		//	return "", err
+		//}
+
+		prompt := promptui.Prompt{
+			Label:    "Crypto Key(16 bytes)",
+			Mask:     '*',
+		}
+
+		key, err := prompt.Run()
 		if err != nil {
 			return "", err
 		}
-		CRYPTO_KEY = string(keyByte)
+
+		CRYPTO_KEY = key
 	}
 	if len(CRYPTO_KEY) != 16 {
-		return "", errors.New("crypto key must be 16 bytes")
+		return "", errors.New("Crypto Key must be equal to 16 characters")
 	}
 	return CRYPTO_KEY, nil
 }
