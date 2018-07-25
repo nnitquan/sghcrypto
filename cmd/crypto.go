@@ -6,7 +6,14 @@ import (
 	"sghcrypto/util"
 	"fmt"
 	"errors"
+	"os"
 )
+
+var (
+	ENCRYPT = "encrypt"
+	DECRYPT = "decrypt"
+)
+
 
 func checkArgs(c *cli.Context) error {
 	if len(c.Args()) <= 0 {
@@ -16,77 +23,82 @@ func checkArgs(c *cli.Context) error {
 	return nil
 }
 
-func getCryptoKey() (string, error) {
-	if CRYPTO_KEY == "" {
-		//fmt.Printf("Crypto Key(16 bytes): ")
-		//keyByte, err := gopass.GetPasswd()
-		//if err != nil {
-		//	return "", err
-		//}
-
+func getCryptoKey(c *cli.Context) (string, error) {
+	var crptoKey string
+	if c.String("key") != "" {
+		crptoKey = c.String("key")
+	}else if os.Getenv("CRYPTO_KEY") != "" {
+		crptoKey = os.Getenv("CRYPTO_KEY")
+	}else {
 		prompt := promptui.Prompt{
 			Label:    "Crypto Key(16 bytes)",
 			Mask:     '*',
 		}
-
 		key, err := prompt.Run()
 		if err != nil {
 			return "", err
 		}
-
-		CRYPTO_KEY = key
+		crptoKey = key
 	}
-	if len(CRYPTO_KEY) != 16 {
+	if len(crptoKey) != 16 {
 		return "", errors.New("Crypto Key must be equal to 16 characters")
 	}
-	return CRYPTO_KEY, nil
+	return crptoKey, nil
+}
+
+var cryptoKeyFlag = cli.StringFlag{
+	Name: "key,k",
+	Value: "",
+	Usage: "cryto key for your encrypt or decrypt action",
+}
+
+func cryotoAction(c *cli.Context, action string)  error {
+	err := checkArgs(c)
+	if err != nil {
+		return err
+	}
+	key, err := getCryptoKey(c)
+	if err != nil {
+		return err
+	}
+	arg := c.Args().First()
+	var content string
+	if action == ENCRYPT {
+		content,err =util.Encrypt([]byte(key), arg)
+	}else if action == DECRYPT {
+		content,err =util.Decrypt([]byte(key), arg)
+	}else{
+		err = errors.New("unknown action")
+	}
+	if err != nil {
+		return err
+	}
+	fmt.Printf("%s %s ===> %s\n", action, arg, content)
+	return nil
 }
 
 var crypto  = &[]cli.Command {
 	{
-		Name:  "encrypt",
+		Name:  ENCRYPT,
 		Aliases:     []string{"e", "en"},
 		Usage: "encrypt a message",
+		Flags: []cli.Flag{
+			cryptoKeyFlag,
+		},
 		Action: func(c *cli.Context) error {
-			err := checkArgs(c)
-			if err != nil {
-				return err
-			}
-			key, err := getCryptoKey()
-			if err != nil {
-				return err
-			}
-			arg := c.Args().First()
-			content,err :=util.Encrypt([]byte(key), arg)
-			if err != nil {
-				return err
-			}
-			fmt.Printf("encrypt %s ===> %s\n", arg, content)
-			return nil
+			return cryotoAction(c, ENCRYPT)
 		},
 		//Category:    "crypto",
 	},
 	{
-		Name:  "decrypt",
+		Name:  DECRYPT,
 		Usage: "decrypt a message",
 		Aliases:     []string{"d", "de"},
-		Action: func(c *cli.Context) error {
-			err := checkArgs(c)
-			if err != nil {
-				return err
-			}
-			key, err := getCryptoKey()
-			if err != nil {
-				return err
-			}
-			arg := c.Args().First()
-			content,err :=util.Decrypt([]byte(key), arg)
-			if err != nil {
-				return err
-			}
-			fmt.Printf("decrypt %s ===> %s\n", arg, content)
-			return nil
+		Flags: []cli.Flag{
+			cryptoKeyFlag,
 		},
-		//Category:    "crypto",
+		Action: func(c *cli.Context) error {
+			return cryotoAction(c, DECRYPT)
+		},
 	},
 }
