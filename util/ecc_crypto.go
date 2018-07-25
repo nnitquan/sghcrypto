@@ -5,7 +5,6 @@ import (
 	"github.com/ethereum/go-ethereum/crypto/ecies"
 	"errors"
 	"crypto/rand"
-	"fmt"
 )
 
 func EciesEncrypt(dataByte []byte, publicKeyByte []byte) (encryptDataByte []byte, err error) {
@@ -13,7 +12,6 @@ func EciesEncrypt(dataByte []byte, publicKeyByte []byte) (encryptDataByte []byte
 		return nil, errors.New("params error")
 	}
 	publicKeyEcdsa, err := crypto.UnmarshalPubkey(publicKeyByte)
-	fmt.Println("publicKeyByte", publicKeyByte)
 	if err != nil {
 		return nil, err
 	}
