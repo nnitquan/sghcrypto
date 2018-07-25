@@ -81,11 +81,15 @@ $ sghcrypto d wnOFhpMJhbEQ0UoLu_ugtvPfxZ54ozON8njBnHP8qLc -k 1234567890123456
 decrypt wnOFhpMJhbEQ0UoLu_ugtvPfxZ54ozON8njBnHP8qLc ===> hello
 ```
 Use CRYPTO_KEY env also support:
-Windows
+### Windows
 ```
 $ set CRYPTO_KEY=1234567890123456
+$ sghcrypto e hello
+encrypt hello ===> Rs_jvGfUZFefVFiiUhkMCnkRLQuYuRkcDVYPtL9RZAI
 ```
-Linux
+### Linux
 ```
 $ export CRYPTO_KEY=1234567890123456
+$ sghcrypto d Rs_jvGfUZFefVFiiUhkMCnkRLQuYuRkcDVYPtL9RZAI
+decrypt Rs_jvGfUZFefVFiiUhkMCnkRLQuYuRkcDVYPtL9RZAI ===> hello
 ```
