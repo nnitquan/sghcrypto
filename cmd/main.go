@@ -21,7 +21,8 @@ func InitApp() error {
 		},
 	}
 	app.Action = func(c *cli.Context) error {
-		fmt.Println("hello world!")
+		fmt.Println("A command-line applications to encrypt or decrypt your important data")
+		fmt.Println("Very easy to use, support interactive prompt, and as simple as possible")
 		return nil
 	}
 	app.Commands = *crypto
