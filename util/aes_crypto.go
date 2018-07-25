@@ -41,7 +41,7 @@ func Unpad(src []byte) ([]byte, error) {
 	return src[:(length - unpadding)], nil
 }
 
-func Encrypt(key []byte, text string) (string, error) {
+func AesEncrypt(key []byte, text string) (string, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		return "", err
@@ -60,7 +60,7 @@ func Encrypt(key []byte, text string) (string, error) {
 	return finalMsg, nil
 }
 
-func Decrypt(key []byte, text string) (string, error) {
+func AesDecrypt(key []byte, text string) (string, error) {
 	block, err := aes.NewCipher(key)
 	if err != nil {
 		return "", err
