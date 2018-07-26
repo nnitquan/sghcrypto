@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"github.com/urfave/cli"
+	"sghcrypto/cmd/crypto"
 	"log"
 	"fmt"
 	"os"
@@ -25,7 +26,7 @@ func InitApp() error {
 		fmt.Println("Very easy to use, support interactive prompt, and as simple as possible")
 		return nil
 	}
-	app.Commands = *crypto
+	app.Commands = *crypto.CryptoCommands
 
 	return app.Run(os.Args)
 }
