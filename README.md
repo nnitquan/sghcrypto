@@ -6,24 +6,23 @@
 * Currently support aes and ecies crypto
 
 ## Install
-Currently only support install cli from source.
-"dev ensure" require a proxy if in china.
-This is the linux example:
-### Set your proxy
+Require go version 1.11+.
+### Set your proxy on windows which is not required on linux
 ```
-$ export http_proxy=http://localhost:58787
-$ export https_proxy=http://localhost:58787
+$ set http_proxy=http://localhost:58787
+$ set https_proxy=http://localhost:58787
 ```
 ### Download source codes
 ```
-$ cd $GOPATH/src && git clone https://github.com/sanguohot/sghcrypto
+$ git clone https://github.com/sanguohot/sghcrypto
 ```
-### Downlad packages
+### Linux Install(without network downlad)
 ```
-$ cd sghcrypto && dep ensure
+$ cd sghcrypto && ./build.sh
 ```
-### Build it
+### Windows Install(require network downlad)
 ```
+$ cd sghcrypto
 $ go install
 ```
 ### Test it
