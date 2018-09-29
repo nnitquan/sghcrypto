@@ -103,7 +103,7 @@ func cryotoAction(c *cli.Context, action string)  error {
 	return err
 }
 
-var CryptoCommands  = &[]cli.Command {
+var CryptoCommands  = []cli.Command {
 	{
 		Name:  ENCRYPT,
 		Aliases:     []string{"e", "en"},

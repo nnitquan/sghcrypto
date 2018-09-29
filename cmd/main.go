@@ -1,10 +1,10 @@
 package cmd
 
 import (
-	"github.com/urfave/cli"
-	"sghcrypto/cmd/crypto"
-	"log"
 	"fmt"
+	"github.com/nnitquan/sghcrypto/cmd/crypto"
+	"github.com/urfave/cli"
+	"log"
 	"os"
 	"time"
 )
@@ -26,7 +26,7 @@ func InitApp() error {
 		fmt.Printf("\n%s", app.Usage)
 		return nil
 	}
-	app.Commands = *crypto.CryptoCommands
+	app.Commands = crypto.CryptoCommands
 
 	return app.Run(os.Args)
 }

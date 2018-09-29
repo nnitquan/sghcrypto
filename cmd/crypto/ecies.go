@@ -1,14 +1,14 @@
 package crypto
 
 import (
-	"github.com/urfave/cli"
-	"github.com/manifoldco/promptui"
-	"sghcrypto/util"
-	"fmt"
-	"errors"
-	"os"
 	"encoding/hex"
+	"errors"
+	"fmt"
 	"github.com/ethereum/go-ethereum/common/hexutil"
+	"github.com/manifoldco/promptui"
+	"github.com/nnitquan/sghcrypto/util"
+	"github.com/urfave/cli"
+	"os"
 )
 
 func getPublicKey(c *cli.Context) ([]byte, error) {

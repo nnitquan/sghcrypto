@@ -1,7 +1,7 @@
 package main
 
 import (
-	"sghcrypto/cmd"
+	"github.com/nnitquan/sghcrypto/cmd"
 )
 
 func main() {

@@ -1,11 +1,11 @@
 package crypto
 
 import (
-	"github.com/urfave/cli"
-	"github.com/manifoldco/promptui"
-	"sghcrypto/util"
-	"fmt"
 	"errors"
+	"fmt"
+	"github.com/manifoldco/promptui"
+	"github.com/nnitquan/sghcrypto/util"
+	"github.com/urfave/cli"
 	"os"
 )
 
