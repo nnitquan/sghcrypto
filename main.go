@@ -1,9 +1,8 @@
 package main
 
 import (
-	"github.com/nnitquan/sghcrypto/cmd"
+	_ "github.com/nnitquan/sghcrypto/cmd"
 )
 
 func main() {
-	cmd.Init();
 }

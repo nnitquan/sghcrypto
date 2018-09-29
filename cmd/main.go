@@ -31,7 +31,7 @@ func InitApp() error {
 	return app.Run(os.Args)
 }
 
-func Init() {
+func init() {
 	err := InitApp()
 	if err != nil {
 		log.Fatal(err)

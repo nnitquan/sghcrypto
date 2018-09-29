@@ -7,6 +7,7 @@ import (
 	"github.com/nnitquan/sghcrypto/util"
 	"github.com/urfave/cli"
 	"os"
+	"time"
 )
 
 func getAesKey(c *cli.Context) (string, error) {
@@ -52,5 +53,6 @@ func aesCryptoAction(c *cli.Context, action string) error {
 		return err
 	}
 	fmt.Printf("aes %s %s ===> %s\n", action, arg, content)
+	time.Sleep(time.Millisecond * 100)
 	return nil
 }
